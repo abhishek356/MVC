@@ -30,7 +30,7 @@ public class DaoLayerImplementer implements DaoLayer{
 	
 	try {
 		
-		property.load(new FileInputStream("/mvc/src/main/java/com/spring/util/property.properties"));
+		property.load(new FileInputStream("B:\\Github\\MVC\\src\\main\\java\\com\\spring\\util\\property.properties"));
 		
 	}
 	catch(IOException ex)
@@ -41,9 +41,16 @@ public class DaoLayerImplementer implements DaoLayer{
 	@Override
 	public boolean saveDetails(User user) {
 		// TODO Auto-generated method stub
-		System.out.println("Inside dao layer");
+	//	System.out.println("Inside dao layer");
 		System.out.println(property.getProperty("hello"));
-		return false;
+		String query = property.getProperty("insert_query");
+		
+	int result = 	jdbcTemplate.update(query, user.getUserName(),user.getPassword(),user.getEmail());
+	
+	if (result>0)
+	{
+		return true;
 	}
-
+	return false;
+	}
 }
